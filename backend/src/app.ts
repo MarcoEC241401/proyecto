@@ -5,7 +5,7 @@ import { env } from './config/env'
 import { errorHandler } from './middlewares/errorHandler'
 import authRoutes from './routes/auth.routes'
 import attendanceRoutes from './routes/attendance.routes'
-import reporteRoutes from './routes/reporte.routes' //  IMPORTANTE
+import reporteRoutes from './routes/reporte.routes'
 import userRoutes from './routes/user.routes'
 
 import './jobs/markAbsences.job'
@@ -31,16 +31,12 @@ app.use('/api/users', userRoutes)
 app.use(errorHandler)
 
 const start = async () => {
-  app.listen(Number(env.PORT), '0.0.0.0', () => {
-    console.log(`Servidor corriendo en el puerto: ${env.PORT}`)
-  })
+  await connectDB()
 
-  try {
-    await connectDB()
-  } catch (error) {
-    console.error('Error al conectar a MongoDB en el arranque:', error)
-    process.exit(1)
-  }
+  const PORT = process.env.PORT || env.PORT || 8080
+  app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`Servidor corriendo en el puerto: ${PORT}`)
+  })
 }
 
 start()
