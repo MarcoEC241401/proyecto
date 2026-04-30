@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext"; // Asegúrate que la ruta sea correcta
 
 export default function Dashboard() {
   const [estado, setEstado] = useState<any>(null);
   const [error, setError] = useState(false);
-  const { logout } = useAuth(); // Usamos la función del contexto si existe
 
   useEffect(() => {
     const obtenerEstado = async () => {

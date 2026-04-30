@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { useAuth } from '../../../context/AuthContext'
 import { descargarExcel, enviarReportePorCorreo } from '../../../services/admin.service'
 
 export default function AdminReports() {
-  const { token } = useAuth()
   const [fecha, setFecha] = useState('')
   const [correo, setCorreo] = useState('')
   const [loading, setLoading] = useState(false)
