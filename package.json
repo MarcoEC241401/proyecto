@@ -10,7 +10,9 @@
   "scripts": {
     "frontend": "npm run dev --workspace=frontend",
     "backend": "npm run dev --workspace=backend",
-    "dev": "npm run backend & npm run frontend"
+    "dev": "npm run backend & npm run frontend",
+    "build": "npm run build --workspace=backend",
+    "start": "npm run start --workspace=backend"
   },
   "repository": {
     "type": "git",
