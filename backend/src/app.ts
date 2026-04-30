@@ -31,11 +31,16 @@ app.use('/api/users', userRoutes)
 app.use(errorHandler)
 
 const start = async () => {
-  await connectDB()
-  // Iniciar jobs programados que requieren DB
-  app.listen(env.PORT, () => {
+  app.listen(Number(env.PORT), '0.0.0.0', () => {
     console.log(`Servidor corriendo en el puerto: ${env.PORT}`)
   })
+
+  try {
+    await connectDB()
+  } catch (error) {
+    console.error('Error al conectar a MongoDB en el arranque:', error)
+    process.exit(1)
+  }
 }
 
 start()
