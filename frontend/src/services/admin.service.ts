@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const BASE = import.meta.env.VITE_API_URL || ''
+
 const getHeaders = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -7,12 +9,12 @@ const getHeaders = () => ({
 })
 
 export const obtenerResumen = async (fecha: string) => {
-  const { data } = await axios.get(`/api/attendance/resumen?fecha=${fecha}`, getHeaders())
+  const { data } = await axios.get(`${BASE}/api/attendance/resumen?fecha=${fecha}`, getHeaders())
   return data
 }
 
 export const descargarExcel = async (fecha: string) => {
-  const response = await axios.get(`/api/reports/download?fecha=${fecha}`, {
+  const response = await axios.get(`${BASE}/api/reports/download?fecha=${fecha}`, {
     ...getHeaders(),
     responseType: 'blob',
   })
@@ -28,7 +30,7 @@ export const descargarExcel = async (fecha: string) => {
 
 export const enviarReportePorCorreo = async (fecha: string, destinatario: string) => {
   const { data } = await axios.post(
-    '/api/reporte',
+    `${BASE}/api/reporte`,
     { fecha, destinatario },
     getHeaders()
   )

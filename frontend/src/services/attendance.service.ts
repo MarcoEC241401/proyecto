@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { IAttendanceState } from '../types/attendance.types'
+import type { IAttendanceState } from '../types/attendance.types'
 
-const API = '/api/attendance'
+const BASE = import.meta.env.VITE_API_URL || ''
+const API = `${BASE}/api/attendance`
 
 const getHeaders = () => ({
   headers: {
@@ -35,6 +36,6 @@ export const finalizarJornada = async (): Promise<unknown> => {
 }
 
 export const obtenerHistorial = async () => {
-  const { data } = await axios.get('/api/attendance/historial', getHeaders())
+  const { data } = await axios.get(`${API}/historial`, getHeaders())
   return data
 }

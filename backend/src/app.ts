@@ -13,26 +13,31 @@ import './jobs/sendDailyReport.job'
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://frontend-psi-gold-21.vercel.app',
+    'https://frontend-it3cbqf01-marcoec2414s-projects.vercel.app',
+  ],
+  credentials: true,
+}))
+
 app.use(express.json())
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', env: env.NODE_ENV })
 })
 
-// Rutas
 app.use('/api/auth', authRoutes)
 app.use('/api/attendance', attendanceRoutes)
 app.use('/api/reporte', reporteRoutes)
 app.use('/api/reports', reporteRoutes)
 app.use('/api/users', userRoutes)
 
-// Manejador de errores — siempre al final
 app.use(errorHandler)
 
 const start = async () => {
   await connectDB()
-
   const PORT = process.env.PORT || env.PORT || 8080
   app.listen(Number(PORT), '0.0.0.0', () => {
     console.log(`Servidor corriendo en el puerto: ${PORT}`)

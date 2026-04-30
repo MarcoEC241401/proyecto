@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const API = '/api/users'
+const BASE = import.meta.env.VITE_API_URL || ''
+const API = `${BASE}/api/users`
 
 const getHeaders = () => ({
   headers: {
@@ -24,6 +25,6 @@ export const desactivarUsuario = async (id: string) => {
 }
 
 export const crearUsuario = async (userData: object) => {
-  const { data } = await axios.post('/api/auth/users', userData, getHeaders())
+  const { data } = await axios.post(`${BASE}/api/auth/users`, userData, getHeaders())
   return data
 }
